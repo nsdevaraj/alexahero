@@ -45,6 +45,21 @@ const LaunchRequestHandler = {
       .getResponse();
   },
 };
+const OpenIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'open';
+  },
+  handle(handlerInput) {
+    const speechText = "Welcome "+dashboardname.username+",you are looking at the "+dashboardname.name+" from "+dashboardname.lasttime;
+	io.emit('open', speechText);
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('VBX Alexa', speechText)
+      .getResponse();
+  },
+};
+
  
 const HelpIntentHandler = {
   canHandle(handlerInput) {
@@ -57,6 +72,21 @@ const HelpIntentHandler = {
       .speak(speechText)
       .reprompt(speechText)
       .withSimpleCard('Name Alexa', speechText)
+      .getResponse();
+  },
+};
+
+const HelpIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+  },
+  handle(handlerInput) {
+    const speechText = 'You can ask details about the dashboard!'; 
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(speechText)
+      .withSimpleCard('VBX Alexa', speechText)
       .getResponse();
   },
 };
@@ -141,20 +171,6 @@ const MyNameIsHandler = {
   }
 };
   
-const OpenIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'open';
-  },
-  handle(handlerInput) {
-    const speechText = "Welcome ";
-	io.emit('open', speechText);
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard('VBX Alexa', speechText)
-      .getResponse();
-  },
-};
 
 
 app.post('/', function(req, res) {
@@ -165,6 +181,7 @@ app.post('/', function(req, res) {
         .addRequestHandlers(   
 			LaunchRequestHandler, 
 			OpenIntentHandler, 
+			HelpIntentHandler,
 			CancelAndStopIntentHandler,
 			SessionEndedRequestHandler,
 			MyNameIsHandler,
