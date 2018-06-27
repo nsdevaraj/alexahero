@@ -141,6 +141,21 @@ const MyNameIsHandler = {
   }
 };
   
+const OpenIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'open';
+  },
+  handle(handlerInput) {
+    const speechText = "Welcome ";
+	io.emit('open', speechText);
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('VBX Alexa', speechText)
+      .getResponse();
+  },
+};
+
 
 app.post('/', function(req, res) {
 
