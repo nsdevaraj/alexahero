@@ -1,0 +1,49 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "nameis",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "MyNameIs",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.LITERAL"
+                        }
+                    ],
+                    "samples": [
+                        "MyNameIs call me {john|Name}",
+                        "MyNameIs call me {frank|Name}",
+                        "MyNameIs call me {stacey|Name}",
+                        "MyNameIs call me {deva|Name}"
+                    ]
+                },
+                {
+                    "name": "WhoAmI",
+                    "slots": [],
+                    "samples": [
+                        "WhoAmI tell me name",
+                        "WhoAmI say my name"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
